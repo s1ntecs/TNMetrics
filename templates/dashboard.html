@@ -1,0 +1,123 @@
+{% extends "sqladmin/layout.html" %}
+{% block content %}
+<div class="col-sm-6 col-lg-3">
+  <div class="card card-sm">
+    <div class="card-body">
+      <div class="d-flex align-items-center">
+        <span class="bg-blue text-white avatar me-3">
+          <i class="fa-solid fa-users"></i>
+        </span>
+        <div>
+          <div class="text-muted">Users</div>
+          <div class="h3 m-0">{{ stats.users }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6 col-lg-3">
+  <div class="card card-sm">
+    <div class="card-body">
+      <div class="d-flex align-items-center">
+        <span class="bg-green text-white avatar me-3">
+          <i class="fa-solid fa-chart-line"></i>
+        </span>
+        <div>
+          <div class="text-muted">Metrics</div>
+          <div class="h3 m-0">{{ stats.metrics }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6 col-lg-3">
+  <div class="card card-sm">
+    <div class="card-body">
+      <div class="d-flex align-items-center">
+        <span class="bg-azure text-white avatar me-3">
+          <i class="fa-solid fa-database"></i>
+        </span>
+        <div>
+          <div class="text-muted">Records</div>
+          <div class="h3 m-0">{{ stats.records }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6 col-lg-3">
+  <div class="card card-sm">
+    <div class="card-body">
+      <div class="d-flex align-items-center">
+        <span class="bg-orange text-white avatar me-3">
+          <i class="fa-solid fa-tag"></i>
+        </span>
+        <div>
+          <div class="text-muted">Tags</div>
+          <div class="h3 m-0">{{ stats.tags }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-12 col-lg-4">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Report Status</h3>
+    </div>
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-5">Exists</dt>
+        <dd class="col-7">{{ report.exists }}</dd>
+        <dt class="col-5">Metrics</dt>
+        <dd class="col-7">{{ report.total_metrics }}</dd>
+        <dt class="col-5">Records</dt>
+        <dd class="col-7">{{ report.total_records }}</dd>
+        <dt class="col-5">Updated</dt>
+        <dd class="col-7">{{ report.updated_at }}</dd>
+      </dl>
+      <small class="text-muted">{{ report.path }}</small>
+    </div>
+  </div>
+</div>
+
+<div class="col-12 col-lg-8">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Latest Records</h3>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-vcenter card-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>User</th>
+            <th class="text-end">Value</th>
+            <th>Timestamp</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in recent_records %}
+          <tr>
+            <td>{{ item.metric_name }}</td>
+            <td>{{ item.user_email }}</td>
+            <td class="text-end">{{ item.value }}</td>
+            <td>{{ item.timestamp }}</td>
+            <td>{{ item.created_at }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="5" class="text-muted text-center">No records yet</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
